@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>KX-NeuroCore Training Formatter — KingxTech</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#05050a;--s1:#090912;--s2:#0d0d1b;--s3:#111124;--s4:#161630;
+  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.11);--b3:rgba(255,255,255,.19);
+  --t1:#eaeaf6;--t2:rgba(234,234,246,.54);--t3:rgba(234,234,246,.24);
+  --pk:#e040fb;--vi:#7c3aed;--bl:#2563eb;--cy:#06b6d4;
+  --gr:#10b981;--am:#f59e0b;--rd:#ef4444;--or:#f97316;
+  --grad:linear-gradient(135deg,#e040fb 0%,#7c3aed 48%,#2563eb 100%);
+  --gradt:linear-gradient(135deg,#e040fb 0%,#a855f7 40%,#3b82f6 100%);
+  --mono:'JetBrains Mono',monospace;--head:'Syne',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--t1);font-family:var(--head);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(124,58,237,.3);border-radius:4px}
+body::before{content:'';position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay}
+.amb{position:fixed;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:0;opacity:.12}
+.a1{width:600px;height:600px;background:radial-gradient(circle,#e040fb,transparent 70%);top:-200px;left:-150px;animation:da 20s ease-in-out infinite alternate}
+.a2{width:500px;height:500px;background:radial-gradient(circle,#2563eb,transparent 70%);bottom:-100px;right:-100px;animation:db 24s ease-in-out infinite alternate}
+@keyframes da{to{transform:translate(50px,70px)}}
+@keyframes db{to{transform:translate(-40px,-50px)}}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── NAV ── */
+.topnav{
+  position:sticky;top:0;z-index:100;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+  background:rgba(5,5,10,.88);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b1);
+  box-shadow:0 4px 24px rgba(0,0,0,.6);
+}
+.nav-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:.92rem}
+.nav-icon{width:30px;height:30px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;color:#fff;font-family:var(--mono)}
+.nav-brand-text span{background:var(--gradt);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-brand-text em{color:var(--t3);font-style:normal;font-size:.8rem;font-weight:500}
+.nav-right{display:flex;align-items:center;gap:8px}
+.ver-pill{font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:var(--gr);font-family:var(--mono)}
+.stats-pill{font-size:.67rem;font-weight:700;padding:4px 11px;border-radius:20px;background:rgba(124,58,237,.09);border:1px solid rgba(124,58,237,.22);color:var(--vi);font-family:var(--mono)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1240px;margin:0 auto;padding:28px 28px 60px;position:relative;z-index:1}
+
+/* ── PAGE HEADER ── */
+.page-hd{margin-bottom:28px;animation:fu .5s ease both}
+.page-title{font-size:1.75rem;font-weight:900;letter-spacing:-.04em;margin-bottom:6px}
+.page-title span{background:var(--gradt);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-sub{font-size:.88rem;color:var(--t2);font-weight:400;max-width:580px;line-height:1.7}
+
+/* ── TWO-COL LAYOUT ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:960px){.two-col{grid-template-columns:1fr}}
+
+/* ── CARDS ── */
+.card{background:var(--s2);border:1px solid var(--b1);border-radius:14px;overflow:hidden;animation:fu .4s ease both}
+.card-hd{padding:16px 20px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.card-title{font-size:.88rem;font-weight:800;display:flex;align-items:center;gap:8px}
+.card-title .icon{font-size:1rem}
+.card-body{padding:18px 20px}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{
+  border:2px dashed var(--b2);border-radius:12px;
+  padding:32px 20px;text-align:center;cursor:pointer;
+  transition:.22s;background:rgba(0,0,0,.1);
+  position:relative;overflow:hidden;
+}
+.upload-zone:hover,.upload-zone.drag-over{
+  border-color:rgba(124,58,237,.5);
+  background:rgba(124,58,237,.05);
+}
+.upload-zone.has-file{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.04)}
+.upload-icon{font-size:2.2rem;margin-bottom:10px;display:block}
+.upload-zone h3{font-size:.88rem;font-weight:700;margin-bottom:5px}
+.upload-zone p{font-size:.76rem;color:var(--t2);line-height:1.6}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--gr);font-size:.75rem;font-weight:700;margin-top:10px}
+
+/* ── FORM ELEMENTS ── */
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:.73rem;font-weight:700;color:var(--t2);margin-bottom:6px}
+.field label em{color:var(--t3);font-style:normal;font-weight:400;font-size:.68rem;margin-left:4px}
+.inp{width:100%;background:var(--s3);border:1px solid var(--b2);border-radius:9px;color:var(--t1);font-family:var(--head);font-size:.83rem;padding:9px 13px;outline:none;transition:.2s}
+.inp:focus{border-color:rgba(124,58,237,.48);box-shadow:0 0 0 3px rgba(124,58,237,.09)}
+.inp::placeholder{color:var(--t3)}
+select.inp{cursor:pointer;appearance:none}
+textarea.inp{resize:vertical;min-height:72px;line-height:1.6;font-family:var(--mono);font-size:.78rem}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* FORMAT CARDS */
+.fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fmt-card{
+  padding:12px 14px;border-radius:10px;border:1px solid var(--b1);
+  cursor:pointer;transition:.18s;background:var(--s3);
+}
+.fmt-card:hover{border-color:var(--b2)}
+.fmt-card.active{border-color:rgba(124,58,237,.45);background:rgba(124,58,237,.08)}
+.fmt-card h4{font-size:.79rem;font-weight:700;margin-bottom:3px}
+.fmt-card p{font-size:.67rem;color:var(--t3);line-height:1.5}
+.fmt-card .fmt-check{float:right;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:.6rem;margin-top:2px;transition:.18s}
+.fmt-card.active .fmt-check{background:var(--grad);border-color:transparent;color:#fff}
+
+/* FILTER TAGS */
+.filter-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ftag{padding:5px 12px;border-radius:20px;font-size:.71rem;font-weight:700;border:1px solid var(--b2);background:var(--s3);color:var(--t2);cursor:pointer;transition:.15s;user-select:none}
+.ftag:hover{border-color:var(--b3);color:var(--t1)}
+.ftag.on{background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.35);color:var(--vi)}
+.ftag.on-gr{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.3);color:var(--gr)}
+.ftag.on-rd{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.25);color:var(--rd)}
+
+/* CONVERSATION TABLE */
+.conv-table{width:100%;border-collapse:collapse}
+.conv-table th{text-align:left;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);padding:8px 12px;border-bottom:1px solid var(--b1)}
+.conv-table td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle;font-size:.79rem}
+.conv-table tr:last-child td{border-bottom:none}
+.conv-table tr:hover td{background:rgba(255,255,255,.025)}
+.conv-table tr.selected td{background:rgba(124,58,237,.07)}
+.conv-q{font-weight:600;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;color:var(--t1)}
+.conv-q:hover{color:var(--vi)}
+.sent{font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:10px}
+.s-pos{background:rgba(16,185,129,.1);color:var(--gr)}
+.s-neu{background:rgba(37,99,235,.1);color:#60a5fa}
+.s-neg{background:rgba(239,68,68,.08);color:var(--rd)}
+.chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--b2);background:transparent;cursor:pointer;appearance:none;flex-shrink:0;transition:.15s}
+.chk:checked{background:var(--grad);border-color:transparent}
+.quality-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.q-hi{background:var(--gr)}.q-med{background:var(--am)}.q-lo{background:var(--rd)}
+
+/* PREVIEW PANEL */
+.preview-box{
+  background:#06060e;border:1px solid var(--b2);border-radius:10px;
+  padding:14px 16px;font-family:var(--mono);font-size:.74rem;
+  line-height:1.75;overflow:auto;max-height:360px;
+  color:#c9d1d9;position:relative;
+}
+.preview-box .jsonl-line{display:block;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:.12s;border-radius:3px}
+.preview-box .jsonl-line:hover{background:rgba(124,58,237,.08);padding-left:4px}
+.preview-box .jsonl-line:last-child{border-bottom:none}
+.jk{color:#79c0ff}.jv{color:#a5d6ff}.js{color:#a8ff78}.jn{color:#ffa657}.jb{color:#ff7b72}
+.line-num{color:rgba(255,255,255,.2);user-select:none;margin-right:10px;font-size:.68rem;min-width:24px;display:inline-block;text-align:right}
+
+/* PROGRESS BAR */
+.prog-wrap{margin:12px 0}
+.prog-label{display:flex;justify-content:space-between;font-size:.71rem;color:var(--t2);margin-bottom:5px}
+.prog-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:var(--grad);transition:width .4s ease}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+@media(max-width:700px){.stats-row{grid-template-columns:1fr 1fr}}
+.stat-box{background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.stat-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;border-radius:0 0 12px 12px}
+.sb-pk::after{background:var(--grad)}.sb-cy::after{background:linear-gradient(90deg,var(--cy),var(--bl))}
+.sb-gr::after{background:linear-gradient(90deg,var(--gr),var(--cy))}.sb-am::after{background:linear-gradient(90deg,var(--am),var(--or))}
+.stat-box .sv{font-size:1.6rem;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:3px}
+.stat-box .sl{font-size:.68rem;color:var(--t2)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;font-family:var(--head);border:none}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 3px 14px rgba(124,58,237,.3)}
+.btn-primary:hover{box-shadow:0 6px 24px rgba(124,58,237,.5);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--t2);border:1px solid var(--b2)}
+.btn-ghost:hover{border-color:var(--b3);color:var(--t1)}
+.btn-green{background:rgba(16,185,129,.12);color:var(--gr);border:1px solid rgba(16,185,129,.28)}
+.btn-green:hover{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.5)}
+.btn-sm{padding:6px 13px;font-size:.73rem}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ACTION ROW */
+.action-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--b1);margin-top:14px}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;z-index:9999;background:var(--s2);border:1px solid var(--b2);border-radius:11px;padding:12px 18px;font-size:.8rem;display:flex;align-items:center;gap:9px;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:translateY(80px);opacity:0;transition:.32s cubic-bezier(.22,1,.36,1);max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* SAMPLE BADGE */
+.sample-badge{font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:4px;margin-left:6px}
+.s-sample{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.22);color:var(--am)}
+.s-user{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);color:var(--vi)}
+
+/* STEPS */
+.steps-bar{display:flex;align-items:center;gap:0;margin-bottom:28px;overflow-x:auto;padding:2px 0}
+.step-item{display:flex;align-items:center;gap:0;flex-shrink:0}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;font-family:var(--mono);border:2px solid var(--b2);background:var(--s2);color:var(--t3);transition:.3s;flex-shrink:0}
+.step-dot.done{background:var(--grad);border-color:transparent;color:#fff}
+.step-dot.active{border-color:var(--vi);color:var(--vi);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.step-label{font-size:.68rem;font-weight:700;color:var(--t3);margin:0 8px;white-space:nowrap;transition:.3s}
+.step-label.active{color:var(--vi)}
+.step-label.done{color:var(--gr)}
+.step-line{width:24px;height:1.5px;background:var(--b2);flex-shrink:0;transition:.3s}
+.step-line.done{background:var(--gr)}
+
+/* CALLOUT */
+.callout{display:flex;gap:11px;padding:12px 15px;border-radius:10px;margin:12px 0;font-size:.81rem;line-height:1.6}
+.callout-icon{font-size:.9rem;flex-shrink:0}
+.cal-info{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2)}
+.cal-tip{background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2)}
+.cal-warn{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2)}
+
+/* MOBILE */
+@media(max-width:700px){
+  .topnav{padding:0 16px;height:52px}
+  .wrap{padding:20px 14px 48px}
+  .page-title{font-size:1.35rem}
+  .two-col{grid-template-columns:1fr}
+  .fmt-grid{grid-template-columns:1fr}
+  .inp-row{grid-template-columns:1fr}
+  .card-body{padding:14px 15px}
+  .card-hd{padding:13px 15px}
+  .preview-box{font-size:.7rem;padding:12px}
+  .action-row{gap:7px}
+  .btn{font-size:.76rem;padding:8px 14px}
+  .steps-bar{gap:0}
+  .step-label{display:none}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="amb a1"></div><div class="amb a2"></div>
+<div class="toast" id="toast"><span id="tIcon"></span><span id="tMsg"></span></div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="nav-brand">
+    <div class="nav-icon">KX</div>
+    <div class="nav-brand-text"><span>KingxTech</span> <em>/ Training Formatter</em></div>
+  </div>
+  <div class="nav-right">
+    <div class="ver-pill">JSONL v1</div>
+    <div class="stats-pill" id="navStats">0 samples ready</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-hd">
+    <h1 class="page-title">KX-NeuroCore <span>Training Formatter</span></h1>
+    <p class="page-sub">Import your conversation exports, filter by quality & sentiment, choose a training format, preview JSONL output, and download ready-to-use training files for your AI model.</p>
+  </div>
+
+  <!-- STEPS BAR -->
+  <div class="steps-bar" id="stepsBar">
+    <div class="step-item"><div class="step-dot active" id="sd1">1</div><span class="step-label active" id="sl1">Import Data</span></div>
+    <div class="step-line" id="sline1"></div>
+    <div class="step-item"><div class="step-dot" id="sd2">2</div><span class="step-label" id="sl2">Configure</span></div>
+    <div class="step-line" id="sline2"></div>
+    <div class="step-item"><div class="step-dot" id="sd3">3</div><span class="step-label" id="sl3">Filter & Select</span></div>
+    <div class="step-line" id="sline3"></div>
+    <div class="step-item"><div class="step-dot" id="sd4">4</div><span class="step-label" id="sl4">Preview</span></div>
+    <div class="step-line" id="sline4"></div>
+    <div class="step-item"><div class="step-dot" id="sd5">5</div><span class="step-label" id="sl5">Export</span></div>
+  </div>
+
+  <!-- STEP 1: IMPORT -->
+  <div id="step1">
+    <div class="two-col">
+
+      <!-- Upload -->
+      <div class="card" style="animation-delay:.05s">
+        <div class="card-hd">
+          <div class="card-title"><span class="icon">📥</span> Import Conversations</div>
+          <button class="btn btn-ghost btn-sm" onclick="loadSampleData()">Load Sample Data</button>
+        </div>
+        <div class="card-body">
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="fileInput" accept=".json,.jsonl,.csv" onchange="handleFileUpload(this.files[0])"/>
+            <span class="upload-icon" id="uploadIcon">📂</span>
+            <h3 id="uploadTitle">Drop your export file here</h3>
+            <p id="uploadDesc">Supports JSON (admin export), JSONL, or CSV<br/>Drag & drop or click to browse</p>
+            <div id="fileBadge" style="display:none" class="file-badge">
+              <span>✓</span><span id="fileNameLabel"></span>
+            </div>
+          </div>
+          <div class="callout cal-info" style="margin-top:14px">
+            <div class="callout-icon">ℹ️</div>
+            <div>Export your conversations from the <strong>Admin Dashboard → Export button</strong>. The JSON file contains all conversations, feedback, and injections.</div>
+          </div>
+
+          <!-- Manual entry -->
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--b1)">
+            <div style="font-size:.77rem;font-weight:700;color:var(--t2);margin-bottom:10px">Or add a conversation manually</div>
+            <div class="field"><label>User Message (prompt)</label><textarea class="inp" id="manualQ" placeholder="e.g. Write a PHP function to validate an email address"></textarea></div>
+            <div class="field"><label>AI Response (ideal answer)</label><textarea class="inp" id="manualA" placeholder="e.g. function validateEmail($email) { return filter_var($email, FILTER_VALIDATE_EMAIL); }"></textarea></div>
+            <div class="inp-row">
+              <div class="field"><label>Category</label>
+                <select class="inp" id="manualCat">
+                  <option value="code">Code Generation</option>
+                  <option value="debug">Debugging</option>
+                  <option value="test">Testing</option>
+                  <option value="security">Security</option>
+                  <option value="docs">Documentation</option>
+                  <option value="general">General</option>
+                </select>
+              </div>
+              <div class="field"><label>Quality</label>
+                <select class="inp" id="manualQual">
+                  <option value="high">High ⭐⭐⭐</option>
+                  <option value="medium">Medium ⭐⭐</option>
+                  <option value="low">Low ⭐</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-green btn-sm" onclick="addManual()" style="width:100%;justify-content:center">+ Add to Dataset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loaded data stats -->
+      <div class="card" style="animation-delay:.1s">
+        <div class="card-hd">
+          <div class="card-title"><span class="icon">📊</span> Dataset Overview</div>
+          <button class="btn btn-ghost btn-sm" onclick="clearAll()">Clear All</button>
+        </div>
+        <div class="card-body">
+          <div class="stats-row">
+            <div class="stat-box sb-pk"><div class="sv" id="totalCount">0</div><div class="sl">Total Conversations</div></div>
+            <div class="stat-box sb-cy"><div class="sv" id="selectedCount">0</div><div class="sl">Selected</div></div>
+            <div class="stat-box sb-gr"><div class="sv" id="highQualCount">0</div><div class="sl">High Quality</div></div>
+            <div class="stat-box sb-am"><div class="sv" id="tokenEst">~0</div><div class="sl">Est. Tokens</div></div>
+          </div>
+
+          <!-- Category breakdown -->
+          <div style="font-size:.74rem;font-weight:700;color:var(--t2);margin-bottom:8px">Category Breakdown</div>
+          <div id="categoryBreakdown" style="display:flex;flex-direction:column;gap:6px"></div>
+
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--b1)">
+            <div style="font-size:.74rem;font-weight:700;color:var(--t2);margin-bottom:8px">Quality Distribution</div>
+            <div id="qualityBars"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: CONFIGURE -->
+  <div id="step2" style="display:none">
+    <div class="two-col">
+      <div class="card" style="animation-delay:.05s">
+        <div class="card-hd"><div class="card-title"><span class="icon">⚙️</span> Training Format</div></div>
+        <div class="card-body">
+          <div class="fmt-grid" id="fmtGrid">
+            <div class="fmt-card active" data-fmt="instruct" onclick="selectFmt(this,'instruct')">
+              <div class="fmt-check">✓</div>
+              <h4>Instruction / Response</h4>
+              <p>{"instruction": "...", "response": "..."}<br/>Best for fine-tuning task-specific models</p>
+            </div>
+            <div class="fmt-card" data-fmt="chat" onclick="selectFmt(this,'chat')">
+              <div class="fmt-check"></div>
+              <h4>Chat / Messages</h4>
+              <p>{"messages": [{role, content}]}<br/>Compatible with OpenAI chat format</p>
+            </div>
+            <div class="fmt-card" data-fmt="alpaca" onclick="selectFmt(this,'alpaca')">
+              <div class="fmt-check"></div>
+              <h4>Alpaca Format</h4>
+              <p>{"instruction","input","output"}<br/>Standard Alpaca/LLaMA fine-tuning</p>
+            </div>
+            <div class="fmt-card" data-fmt="sharegpt" onclick="selectFmt(this,'sharegpt')">
+              <div class="fmt-check"></div>
+              <h4>ShareGPT Format</h4>
+              <p>{"conversations":[{from,value}]}<br/>HuggingFace TRL / ShareGPT datasets</p>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--b1)">
+            <div style="font-size:.77rem;font-weight:700;color:var(--t2);margin-bottom:10px">System Prompt <em style="color:var(--t3);font-weight:400">(injected into every sample)</em></div>
+            <textarea class="inp" id="sysPrompt" rows="3" placeholder="You are K-xpertAI, a developer AI built by KingxTech. You specialise in PHP, JavaScript, and web development. Always provide secure, production-ready code with comments.">You are K-xpertAI, a developer AI built by KingxTech. You specialise in PHP, JavaScript, and web development. Always provide secure, production-ready code with comments.</textarea>
+          </div>
+
+          <div style="margin-top:14px" class="inp-row">
+            <div class="field">
+              <label>Max tokens per sample <em>(0 = unlimited)</em></label>
+              <input class="inp" type="number" id="maxTokens" value="0" min="0" max="8192"/>
+            </div>
+            <div class="field">
+              <label>Deduplication</label>
+              <select class="inp" id="dedup">
+                <option value="exact">Exact match</option>
+                <option value="fuzzy">Fuzzy (≥90% similar)</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.8rem;color:var(--t2)">
+              <input type="checkbox" id="shuffleOpt" checked style="accent-color:var(--vi);width:14px;height:14px"/>
+              Shuffle output order (recommended for training)
+            </label>
+          </div>
+          <div style="margin-top:8px">
+            <label style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.8rem;color:var(--t2)">
+              <input type="checkbox" id="splitOpt" style="accent-color:var(--vi);width:14px;height:14px"/>
+              Create train / validation split (80/20)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Format Preview -->
+      <div class="card" style="animation-delay:.1s">
+        <div class="card-hd">
+          <div class="card-title"><span class="icon">👁️</span> Format Preview</div>
+          <span id="fmtName" style="font-size:.68rem;font-family:var(--mono);color:var(--vi);padding:2px 8px;border-radius:4px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2)">instruct</span>
+        </div>
+        <div class="card-body">
+          <div class="preview-box" id="fmtPreview" style="max-height:280px"></div>
+          <div class="callout cal-tip" style="margin-top:12px">
+            <div class="callout-icon">💡</div>
+            <div><strong>Chat format</strong> is recommended if you're fine-tuning with HuggingFace TRL's <code style="font-family:var(--mono);font-size:.76rem;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:3px">SFTTrainer</code>. <strong>Alpaca</strong> works with LLaMA-based models.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: FILTER & SELECT -->
+  <div id="step3" style="display:none">
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-title"><span class="icon">🔍</span> Filter & Select Training Samples</div>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="selectAll(true)">Select All</button>
+          <button class="btn btn-ghost btn-sm" onclick="selectAll(false)">Deselect All</button>
+          <button class="btn btn-ghost btn-sm" onclick="autoSelect()">⚡ Auto-Select Best</button>
+        </div>
+      </div>
+      <div class="card-body" style="padding-top:14px">
+        <!-- Filters -->
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;align-items:flex-start">
+          <div>
+            <div style="font-size:.7rem;font-weight:700;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em">Quality</div>
+            <div class="filter-tags">
+              <div class="ftag on-gr" data-fq="high" onclick="toggleFilter(this,'q')">⭐⭐⭐ High</div>
+              <div class="ftag on" data-fq="medium" onclick="toggleFilter(this,'q')">⭐⭐ Medium</div>
+              <div class="ftag" data-fq="low" onclick="toggleFilter(this,'q')">⭐ Low</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:.7rem;font-weight:700;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em">Sentiment</div>
+            <div class="filter-tags">
+              <div class="ftag on-gr" data-fs="pos" onclick="toggleFilter(this,'s')">😊 Positive</div>
+              <div class="ftag on" data-fs="neu" onclick="toggleFilter(this,'s')">😐 Neutral</div>
+              <div class="ftag on-rd" data-fs="neg" onclick="toggleFilter(this,'s')">😞 Negative</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:.7rem;font-weight:700;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em">Category</div>
+            <div class="filter-tags" id="catFilters"></div>
+          </div>
+          <div style="margin-left:auto">
+            <div style="font-size:.7rem;font-weight:700;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em">Search</div>
+            <input class="inp" id="convSearch" placeholder="Filter by keyword…" oninput="renderTable()" style="width:200px;padding:7px 12px;font-size:.78rem"/>
+          </div>
+        </div>
+        <!-- Table -->
+        <div style="overflow-x:auto">
+          <table class="conv-table" id="convTable"></table>
+        </div>
+        <!-- Pagination -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--b1);flex-wrap:wrap;gap:8px">
+          <div style="font-size:.74rem;color:var(--t3)" id="tableInfo">Showing 0 of 0</div>
+          <div style="display:flex;gap:6px" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PREVIEW -->
+  <div id="step4" style="display:none">
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-title"><span class="icon">📄</span> JSONL Preview</div>
+        <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+          <span id="previewLineCount" style="font-size:.72rem;color:var(--t3)">0 lines</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyAll()">⎘ Copy All</button>
+          <button class="btn btn-ghost btn-sm" onclick="validateJsonl()">✓ Validate</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Validation status -->
+        <div id="validationResult" style="display:none;margin-bottom:12px"></div>
+
+        <div class="preview-box" id="jsonlPreview" style="max-height:420px"></div>
+
+        <div style="margin-top:14px">
+          <div class="prog-wrap">
+            <div class="prog-label"><span>Token estimate</span><span id="tokenLabel">0 tokens</span></div>
+            <div class="prog-bar"><div class="prog-fill" id="tokenBar" style="width:0%"></div></div>
+          </div>
+          <div style="font-size:.7rem;color:var(--t3)">Recommended: 5,000–100,000 tokens for effective fine-tuning. More quality samples = better results.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: EXPORT -->
+  <div id="step5" style="display:none">
+    <div class="two-col">
+      <div class="card" style="animation-delay:.05s">
+        <div class="card-hd"><div class="card-title"><span class="icon">📦</span> Export Options</div></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Output filename</label>
+            <input class="inp" id="outputName" value="kx-neurocore-training" placeholder="filename (no extension)"/>
+          </div>
+          <div class="field">
+            <label>File format</label>
+            <select class="inp" id="outputFmt">
+              <option value="jsonl">JSONL (.jsonl) — recommended</option>
+              <option value="json">JSON array (.json)</option>
+              <option value="csv">CSV (.csv)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+            <button class="btn btn-primary" onclick="downloadMain()" id="dlMainBtn">
+              ⬇ Download Training File
+            </button>
+            <button class="btn btn-green" onclick="downloadVal()" id="dlValBtn" style="display:none">
+              ⬇ Download Validation Split (20%)
+            </button>
+            <button class="btn btn-ghost" onclick="copyAll()">
+              ⎘ Copy to Clipboard
+            </button>
+          </div>
+
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--b1)">
+            <div style="font-size:.75rem;font-weight:700;color:var(--t2);margin-bottom:8px">Export Summary</div>
+            <div id="exportSummary"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="animation-delay:.1s">
+        <div class="card-hd"><div class="card-title"><span class="icon">🚀</span> Next Steps</div></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:12px;padding:12px 14px;background:var(--s3);border:1px solid var(--b1);border-radius:10px;align-items:flex-start">
+              <div style="font-size:1.1rem;flex-shrink:0">1️⃣</div>
+              <div>
+                <div style="font-size:.82rem;font-weight:700;margin-bottom:3px">Upload to your training pipeline</div>
+                <div style="font-size:.74rem;color:var(--t2);line-height:1.55">Push the <code style="font-family:var(--mono);font-size:.72rem;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:3px">.jsonl</code> file to your model training environment</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;padding:12px 14px;background:var(--s3);border:1px solid var(--b1);border-radius:10px;align-items:flex-start">
+              <div style="font-size:1.1rem;flex-shrink:0">2️⃣</div>
+              <div>
+                <div style="font-size:.82rem;font-weight:700;margin-bottom:3px">Run SFT Training</div>
+                <div style="font-size:.74rem;color:var(--t2);line-height:1.55">Use your trainer config with this dataset. Start with 3–5 epochs and evaluate on the validation split.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;padding:12px 14px;background:var(--s3);border:1px solid var(--b1);border-radius:10px;align-items:flex-start">
+              <div style="font-size:1.1rem;flex-shrink:0">3️⃣</div>
+              <div>
+                <div style="font-size:.82rem;font-weight:700;margin-bottom:3px">Update model version</div>
+                <div style="font-size:.74rem;color:var(--t2);line-height:1.55">After training, update the model version in your Admin Dashboard → Settings → Model Version.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;padding:12px 14px;background:var(--s3);border:1px solid var(--b1);border-radius:10px;align-items:flex-start">
+              <div style="font-size:1.1rem;flex-shrink:0">4️⃣</div>
+              <div>
+                <div style="font-size:.82rem;font-weight:700;margin-bottom:3px">Log in Training Log</div>
+                <div style="font-size:.74rem;color:var(--t2);line-height:1.55">Record the run in Admin → Training Log with accuracy delta for tracking over time.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout cal-warn" style="margin-top:14px">
+            <div class="callout-icon">⚠️</div>
+            <div style="font-size:.78rem">Always evaluate on held-out data before deploying a new model version to production users.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BUTTONS -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--b1);flex-wrap:wrap;gap:10px">
+    <button class="btn btn-ghost" id="prevBtn" onclick="goPrev()" style="display:none">← Previous</button>
+    <div style="margin-left:auto">
+      <button class="btn btn-primary" id="nextBtn" onclick="goNext()">Continue →</button>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ─── STATE ─────────────────────────────── */
+var conversations = [];
+var selectedIds = new Set();
+var currentStep = 1;
+var currentFmt = 'instruct';
+var currentPage = 1;
+var PAGE_SIZE = 10;
+var filterQ = new Set(['high','medium']);
+var filterS = new Set(['pos','neu','neg']);
+var filterCats = new Set();
+var generatedJsonl = '';
+var valJsonl = '';
+
+/* ─── SAMPLE DATA ────────────────────────── */
+var SAMPLE_DATA = [
+  {id:'s1',q:'Write a PHP function to validate an email address',a:'function validateEmail($email) {\n    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;\n}',cat:'code',quality:'high',sentiment:'pos',tokens:88},
+  {id:'s2',q:'Debug this PHP error: Undefined variable $user on line 42',a:'The error occurs because `$user` is not initialized before use. Add a null check:\n\nif (isset($user)) {\n    // safe to use $user\n} else {\n    // handle missing user\n}',cat:'debug',quality:'high',sentiment:'pos',tokens:112},
+  {id:'s3',q:'Generate PHPUnit tests for a login controller',a:"class LoginControllerTest extends TestCase {\n    public function test_login_success() {\n        $response = $this->post('/login', ['email'=>'test@test.com','password'=>'password']);\n        $response->assertStatus(200);\n    }\n    public function test_login_invalid_credentials() {\n        $response = $this->post('/login', ['email'=>'bad@test.com','password'=>'wrong']);\n        $response->assertStatus(401);\n    }\n}",cat:'test',quality:'high',sentiment:'pos',tokens:186},
+  {id:'s4',q:'How do I prevent SQL injection in PHP?',a:"Use PDO prepared statements:\n\n$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');\n$stmt->execute([$email]);\n$user = $stmt->fetch();\n\nNever concatenate user input directly into SQL queries. Always use parameterized queries.",cat:'security',quality:'high',sentiment:'pos',tokens:134},
+  {id:'s5',q:'What programming languages do you support?',a:'I support 50+ languages including PHP, JavaScript, TypeScript, Python, Go, Rust, Java, C#, SQL, HTML, CSS, and more.',cat:'general',quality:'medium',sentiment:'neu',tokens:42},
+  {id:'s6',q:'Refactor this Laravel controller using the Repository pattern',a:"Create a UserRepository interface:\n\ninterface UserRepositoryInterface {\n    public function findById(int $id): ?User;\n    public function create(array $data): User;\n}\n\nThen implement it:\n\nclass UserRepository implements UserRepositoryInterface {\n    public function findById(int $id): ?User {\n        return User::find($id);\n    }\n    public function create(array $data): User {\n        return User::create($data);\n    }\n}",cat:'code',quality:'high',sentiment:'pos',tokens:224},
+  {id:'s7',q:'Scan this code for OWASP top 10 vulnerabilities',a:"I found 2 issues:\n1. **SQL Injection (A03)**: Line 12 concatenates `$_GET['id']` directly into the query. Use PDO prepared statements.\n2. **Missing CSRF Token (A01)**: Your POST form doesn't include a CSRF token. Add `@csrf` if using Laravel.",cat:'security',quality:'high',sentiment:'pos',tokens:156},
+  {id:'s8',q:'Generate a dark-themed developer AI banner image',a:'Generating with KX-NeuroCore Image Engine…',cat:'general',quality:'low',sentiment:'neg',tokens:18},
+  {id:'s9',q:'Explain JWT tokens and how they work',a:"JWT (JSON Web Tokens) have 3 parts: Header, Payload, Signature.\n\n1. **Header**: Algorithm type (e.g. HS256)\n2. **Payload**: Claims (user ID, expiry)\n3. **Signature**: HMAC of header + payload + secret\n\nVerification: recalculate the signature server-side and compare.",cat:'general',quality:'high',sentiment:'pos',tokens:178},
+  {id:'s10',q:'How do I implement rate limiting in Laravel?',a:"Use Laravel's built-in throttle middleware:\n\n// routes/api.php\nRoute::middleware(['auth:api','throttle:60,1'])->group(function() {\n    Route::get('/user', [UserController::class, 'index']);\n});\n\nOr custom rate limiting in AppServiceProvider:\n\nRateLimiter::for('api', function (Request $request) {\n    return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());\n});",cat:'code',quality:'high',sentiment:'pos',tokens:210},
+  {id:'s11',q:'What is the difference between authentication and authorization?',a:'**Authentication** = verifying who you are (login with email/password).\n**Authorization** = verifying what you can do (can this user access admin routes?).\n\nIn Laravel: authentication is handled by `Auth::attempt()`, authorization by Gates and Policies.',cat:'general',quality:'medium',sentiment:'neu',tokens:96},
+  {id:'s12',q:'Fix this JavaScript async/await error: UnhandledPromiseRejection',a:"Wrap your async call in a try/catch:\n\nasync function fetchData() {\n    try {\n        const response = await fetch('/api/data');\n        const data = await response.json();\n        return data;\n    } catch (error) {\n        console.error('Fetch failed:', error);\n        throw error; // re-throw or handle\n    }\n}",cat:'debug',quality:'high',sentiment:'pos',tokens:148},
+];
+
+/* ─── FORMAT TEMPLATES ───────────────────── */
+function formatLine(conv, fmt, sysPrompt) {
+  var q = conv.q, a = conv.a, sys = sysPrompt || '';
+  switch(fmt) {
+    case 'instruct':
+      return JSON.stringify({instruction: q, response: a, system: sys || undefined});
+    case 'chat':
+      var msgs = [];
+      if(sys) msgs.push({role:'system', content: sys});
+      msgs.push({role:'user', content: q});
+      msgs.push({role:'assistant', content: a});
+      return JSON.stringify({messages: msgs});
+    case 'alpaca':
+      return JSON.stringify({instruction: sys ? sys + '\n\n' + q : q, input: '', output: a});
+    case 'sharegpt':
+      var convs = [];
+      if(sys) convs.push({from:'system', value: sys});
+      convs.push({from:'human', value: q});
+      convs.push({from:'gpt', value: a});
+      return JSON.stringify({conversations: convs});
+  }
+  return '';
+}
+
+function syntaxColor(jsonStr) {
+  return jsonStr
+    .replace(/("(?:[^"\\]|\\.)*")\s*:/g, '<span class="jk">$1</span>:')
+    .replace(/:\s*("(?:[^"\\]|\\.)*")/g, ': <span class="js">$1</span>')
+    .replace(/:\s*(\d+\.?\d*)/g, ': <span class="jn">$1</span>')
+    .replace(/:\s*(true|false|null)/g, ': <span class="jb">$1</span>');
+}
+
+/* ─── DATA LOADING ───────────────────────── */
+function loadSampleData() {
+  conversations = SAMPLE_DATA.map(function(c){ return Object.assign({}, c); });
+  selectedIds = new Set(conversations.filter(function(c){return c.quality !== 'low'}).map(function(c){return c.id}));
+  filterCats = new Set(conversations.map(function(c){return c.cat}));
+  refreshAll();
+  toast('✅','Sample data loaded — 12 conversations ready');
+}
+
+function handleFileUpload(file) {
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var text = e.target.result;
+      var parsed = [];
+      if(file.name.endsWith('.jsonl')) {
+        // JSONL format
+        text.trim().split('\n').forEach(function(line, i) {
+          if(!line.trim()) return;
+          var obj = JSON.parse(line);
+          parsed.push(normalizeRecord(obj, 'conv_'+i));
+        });
+      } else if(file.name.endsWith('.csv')) {
+        // CSV format
+        var rows = text.trim().split('\n');
+        var headers = rows[0].split(',').map(function(h){return h.trim().replace(/"/g,'')});
+        rows.slice(1).forEach(function(row, i) {
+          var cols = row.split(',');
+          var obj = {};
+          headers.forEach(function(h,j){ obj[h] = (cols[j]||'').replace(/^"|"$/g,'').trim(); });
+          parsed.push(normalizeRecord(obj, 'conv_'+i));
+        });
+      } else {
+        // JSON
+        var data = JSON.parse(text);
+        var list = data.conversations || data.data || data;
+        if(!Array.isArray(list)) list = [list];
+        list.forEach(function(obj, i) { parsed.push(normalizeRecord(obj, 'conv_'+i)); });
+      }
+      conversations = conversations.concat(parsed);
+      selectedIds = new Set(conversations.filter(function(c){return c.quality!=='low'}).map(function(c){return c.id}));
+      filterCats = new Set(conversations.map(function(c){return c.cat}));
+      refreshAll();
+      document.getElementById('uploadTitle').textContent = '✓ ' + file.name;
+      document.getElementById('uploadDesc').textContent = parsed.length + ' conversations imported';
+      document.getElementById('uploadIcon').textContent = '✅';
+      document.getElementById('uploadZone').classList.add('has-file');
+      document.getElementById('fileBadge').style.display = 'inline-flex';
+      document.getElementById('fileNameLabel').textContent = file.name + ' (' + parsed.length + ' records)';
+      toast('📂', 'Imported ' + parsed.length + ' conversations from ' + file.name);
+    } catch(err) {
+      toast('❌', 'Failed to parse file: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function normalizeRecord(obj, fallbackId) {
+  return {
+    id: obj.id || fallbackId,
+    q: obj.q || obj.question || obj.instruction || obj.prompt || obj.user_message || obj.input || '',
+    a: obj.a || obj.answer || obj.response || obj.output || obj.assistant_message || '',
+    cat: obj.cat || obj.category || obj.type || 'general',
+    quality: obj.quality || (obj.liked ? 'high' : 'medium'),
+    sentiment: obj.sentiment || 'neu',
+    tokens: obj.tokens || estimateTokens(obj.q || obj.question || '', obj.a || obj.response || '')
+  };
+}
+
+function estimateTokens(q, a) {
+  return Math.round((q.length + a.length) / 4);
+}
+
+function addManual() {
+  var q = document.getElementById('manualQ').value.trim();
+  var a = document.getElementById('manualA').value.trim();
+  if(!q || !a) { toast('⚠','Fill in both the user message and AI response.'); return; }
+  var newConv = {
+    id: 'manual_' + Date.now(),
+    q: q, a: a,
+    cat: document.getElementById('manualCat').value,
+    quality: document.getElementById('manualQual').value,
+    sentiment: 'pos',
+    tokens: estimateTokens(q, a)
+  };
+  conversations.unshift(newConv);
+  selectedIds.add(newConv.id);
+  filterCats.add(newConv.cat);
+  document.getElementById('manualQ').value = '';
+  document.getElementById('manualA').value = '';
+  refreshAll();
+  toast('✅', 'Conversation added to dataset');
+}
+
+function clearAll() {
+  if(!confirm('Clear all loaded data?')) return;
+  conversations = [];
+  selectedIds = new Set();
+  refreshAll();
+  toast('🗑', 'Dataset cleared');
+}
+
+/* ─── STATS & BREAKDOWNS ─────────────────── */
+function refreshAll() {
+  updateStats();
+  buildCategoryBreakdown();
+  buildQualityBars();
+  buildCatFilters();
+  renderTable();
+  updateNavStats();
+}
+
+function updateStats() {
+  var sel = Array.from(selectedIds).filter(function(id){ return conversations.find(function(c){return c.id===id}) });
+  var hi = conversations.filter(function(c){return c.quality==='high'}).length;
+  var toks = conversations.filter(function(c){return selectedIds.has(c.id)}).reduce(function(s,c){return s+(c.tokens||0)},0);
+  setEl('totalCount', conversations.length);
+  setEl('selectedCount', sel.length);
+  setEl('highQualCount', hi);
+  setEl('tokenEst', toks > 1000 ? (toks/1000).toFixed(1)+'k' : '~'+toks);
+}
+
+function buildCategoryBreakdown() {
+  var cats = {};
+  conversations.forEach(function(c){ cats[c.cat] = (cats[c.cat]||0)+1; });
+  var total = conversations.length || 1;
+  var colors = {code:'var(--vi)',debug:'var(--am)',test:'var(--cy)',security:'var(--rd)',docs:'var(--bl)',general:'var(--t2)'};
+  var html = Object.keys(cats).map(function(cat) {
+    var pct = Math.round(cats[cat]/total*100);
+    var col = colors[cat] || 'var(--t2)';
+    return '<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:.71rem;margin-bottom:3px"><span style="color:'+col+';font-weight:600">'+cat+'</span><span style="color:var(--t3);font-family:var(--mono)">'+cats[cat]+' ('+pct+'%)</span></div><div style="height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+col+';transition:width .5s ease;border-radius:2px"></div></div></div>';
+  }).join('');
+  setEl('categoryBreakdown', html);
+}
+
+function buildQualityBars() {
+  var q = {high:0,medium:0,low:0};
+  conversations.forEach(function(c){ q[c.quality] = (q[c.quality]||0)+1; });
+  var total = conversations.length || 1;
+  var colors = {high:'var(--gr)',medium:'var(--am)',low:'var(--rd)'};
+  var html = Object.keys(q).map(function(k) {
+    if(!q[k]) return '';
+    var pct = Math.round(q[k]/total*100);
+    return '<div style="display:flex;align-items:center;gap:9px;margin-bottom:5px"><span style="font-size:.69rem;width:46px;color:'+colors[k]+'">'+k+'</span><div style="flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+colors[k]+';transition:width .5s ease;border-radius:2px"></div></div><span style="font-size:.68rem;color:var(--t3);font-family:var(--mono);min-width:28px;text-align:right">'+q[k]+'</span></div>';
+  }).join('');
+  setEl('qualityBars', html);
+}
+
+function buildCatFilters() {
+  var cats = [...new Set(conversations.map(function(c){return c.cat}))];
+  var el = document.getElementById('catFilters'); if(!el) return;
+  el.innerHTML = cats.map(function(cat) {
+    var active = filterCats.has(cat);
+    return '<div class="ftag'+(active?' on':'')+'" data-fc="'+cat+'" onclick="toggleFilter(this,\'c\')">'+cat+'</div>';
+  }).join('');
+}
+
+function updateNavStats() {
+  var sel = conversations.filter(function(c){return selectedIds.has(c.id)}).length;
+  setEl('navStats', sel + ' sample' + (sel!==1?'s':'') + ' ready');
+}
+
+/* ─── TABLE ──────────────────────────────── */
+function renderTable() {
+  var q = (document.getElementById('convSearch')||{value:''}).value.toLowerCase();
+  var filtered = conversations.filter(function(c) {
+    if(!filterQ.has(c.quality)) return false;
+    if(!filterS.has(c.sentiment)) return false;
+    if(!filterCats.has(c.cat)) return false;
+    if(q && !c.q.toLowerCase().includes(q) && !c.a.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  var pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  if(currentPage > pages) currentPage = 1;
+  var pageItems = filtered.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE);
+
+  var sentMap = {pos:'s-pos',neu:'s-neu',neg:'s-neg'};
+  var sentLabel = {pos:'Positive',neu:'Neutral',neg:'Negative'};
+  var qualIcon = {high:'🟢',medium:'🟡',low:'🔴'};
+
+  var thead = '<thead><tr><th><input type="checkbox" id="checkAll" class="chk" onchange="toggleAll(this.checked)"/></th><th>User Question</th><th>Category</th><th>Quality</th><th>Sentiment</th><th>Tokens</th></tr></thead>';
+  var tbody = '<tbody>'+pageItems.map(function(c) {
+    var checked = selectedIds.has(c.id) ? 'checked' : '';
+    var selClass = selectedIds.has(c.id) ? ' selected' : '';
+    return '<tr class="'+selClass+'"><td><input type="checkbox" class="chk" '+checked+' onchange="toggleRow(\''+c.id+'\',this.checked)"/></td><td><div class="conv-q" title="'+esc(c.q)+'" onclick="showPreviewModal(\''+c.id+'\')">'+esc(c.q.slice(0,60))+(c.q.length>60?'…':'')+'</div><div style="font-size:.65rem;color:var(--t3);margin-top:2px">'+esc(c.a.slice(0,50))+'…</div></td><td style="font-size:.72rem;color:var(--cy);font-weight:600">'+c.cat+'</td><td><span>'+qualIcon[c.quality]+'</span></td><td><span class="sent '+sentMap[c.sentiment]+'">'+sentLabel[c.sentiment]+'</span></td><td style="font-family:var(--mono);font-size:.72rem;color:var(--t3)">'+c.tokens+'</td></tr>';
+  }).join('')+'</tbody>';
+
+  var el = document.getElementById('convTable'); if(el) el.innerHTML = thead + tbody;
+  setEl('tableInfo', 'Showing '+(pageItems.length)+' of '+filtered.length);
+  buildPagination(pages, filtered.length);
+}
+
+function buildPagination(pages, total) {
+  var el = document.getElementById('pagination'); if(!el) return;
+  if(pages <= 1) { el.innerHTML = ''; return; }
+  var html = '';
+  for(var i=1;i<=pages;i++) {
+    var active = i===currentPage;
+    html += '<button onclick="goPage('+i+')" style="width:28px;height:28px;border-radius:6px;border:1px solid '+(active?'rgba(124,58,237,.4)':'var(--b1)')+';background:'+(active?'rgba(124,58,237,.1)':'transparent')+';color:'+(active?'var(--vi)':'var(--t2)')+';font-size:.72rem;cursor:pointer;font-family:var(--mono)">'+i+'</button>';
+  }
+  el.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; renderTable(); }
+function toggleRow(id, checked) {
+  if(checked) selectedIds.add(id); else selectedIds.delete(id);
+  updateStats(); updateNavStats();
+  var row = document.querySelector('#convTable tr.selected');
+  renderTable();
+}
+function toggleAll(checked) {
+  var q = (document.getElementById('convSearch')||{value:''}).value.toLowerCase();
+  conversations.filter(function(c){
+    return filterQ.has(c.quality) && filterS.has(c.sentiment) && filterCats.has(c.cat) &&
+      (!q || c.q.toLowerCase().includes(q));
+  }).forEach(function(c){ if(checked) selectedIds.add(c.id); else selectedIds.delete(c.id); });
+  updateStats(); updateNavStats(); renderTable();
+}
+function selectAll(v) {
+  conversations.forEach(function(c){ if(v) selectedIds.add(c.id); else selectedIds.delete(c.id); });
+  updateStats(); updateNavStats(); renderTable();
+}
+function autoSelect() {
+  selectedIds = new Set(conversations.filter(function(c){return c.quality==='high'&&c.sentiment!=='neg'}).map(function(c){return c.id}));
+  updateStats(); updateNavStats(); renderTable();
+  toast('⚡','Auto-selected '+selectedIds.size+' high-quality samples');
+}
+function toggleFilter(el, type) {
+  var key = el.dataset.fq || el.dataset.fs || el.dataset.fc;
+  var set = type==='q' ? filterQ : type==='s' ? filterS : filterCats;
+  if(set.has(key)) set.delete(key); else set.add(key);
+  el.classList.toggle('on');
+  currentPage=1; renderTable();
+}
+
+/* ─── FORMAT ─────────────────────────────── */
+function selectFmt(el, fmt) {
+  currentFmt = fmt;
+  document.querySelectorAll('.fmt-card').forEach(function(c){c.classList.remove('active');c.querySelector('.fmt-check').textContent='';});
+  el.classList.add('active');
+  el.querySelector('.fmt-check').textContent = '✓';
+  setEl('fmtName', fmt);
+  updateFmtPreview();
+}
+
+function updateFmtPreview() {
+  var sample = conversations[0] || {q:'Write a PHP validation function',a:'function validate($input) { return filter_var($input, FILTER_VALIDATE_EMAIL); }',cat:'code'};
+  var sys = (document.getElementById('sysPrompt')||{value:''}).value;
+  var line = formatLine(sample, currentFmt, sys);
+  var el = document.getElementById('fmtPreview');
+  if(el) el.innerHTML = '<span class="jsonl-line">'+syntaxColor(line)+'</span>';
+}
+
+/* ─── JSONL GENERATION ───────────────────── */
+function generateJsonl() {
+  var sys = (document.getElementById('sysPrompt')||{value:''}).value;
+  var maxTok = parseInt((document.getElementById('maxTokens')||{value:'0'}).value) || 0;
+  var shuffle = (document.getElementById('shuffleOpt')||{checked:true}).checked;
+  var split = (document.getElementById('splitOpt')||{checked:false}).checked;
+
+  var selected = conversations.filter(function(c){ return selectedIds.has(c.id); });
+
+  // Dedup
+  var dedup = (document.getElementById('dedup')||{value:'exact'}).value;
+  if(dedup !== 'none') {
+    var seen = new Set();
+    selected = selected.filter(function(c){
+      var key = dedup === 'exact' ? c.q.trim().toLowerCase() : c.q.trim().toLowerCase().slice(0,60);
+      if(seen.has(key)) return false;
+      seen.add(key); return true;
+    });
+  }
+
+  // Max tokens filter
+  if(maxTok > 0) selected = selected.filter(function(c){ return (c.tokens||0) <= maxTok; });
+
+  // Shuffle
+  if(shuffle) selected = selected.sort(function(){ return Math.random()-.5; });
+
+  var lines = selected.map(function(c){ return formatLine(c, currentFmt, sys); });
+
+  // Split
+  if(split) {
+    var splitAt = Math.floor(lines.length * 0.8);
+    valJsonl = lines.slice(splitAt).join('\n');
+    lines = lines.slice(0, splitAt);
+  } else {
+    valJsonl = '';
+  }
+
+  generatedJsonl = lines.join('\n');
+
+  // Update UI
+  var previewEl = document.getElementById('jsonlPreview');
+  if(previewEl) {
+    if(!lines.length) { previewEl.innerHTML = '<span style="color:var(--t3)">No samples selected. Go back and select conversations.</span>'; return; }
+    previewEl.innerHTML = lines.slice(0,50).map(function(l,i){
+      return '<span class="jsonl-line"><span class="line-num">'+(i+1)+'</span>'+syntaxColor(l)+'</span>';
+    }).join('') + (lines.length > 50 ? '<span style="color:var(--t3);padding:4px 0;display:block">… '+(lines.length-50)+' more lines</span>' : '');
+  }
+  setEl('previewLineCount', lines.length + ' lines');
+
+  // Token progress
+  var totalTok = selected.reduce(function(s,c){return s+(c.tokens||0)},0);
+  var pct = Math.min(100, Math.round(totalTok/100000*100));
+  var tokEl = document.getElementById('tokenBar'); if(tokEl) tokEl.style.width = pct+'%';
+  setEl('tokenLabel', totalTok.toLocaleString() + ' est. tokens');
+
+  // Show val download btn
+  var valBtn = document.getElementById('dlValBtn');
+  if(valBtn) valBtn.style.display = split && valJsonl ? 'flex' : 'none';
+
+  // Export summary
+  var fmt = (document.getElementById('outputFmt')||{value:'jsonl'}).value;
+  setEl('exportSummary',
+    '<div style="font-size:.78rem;color:var(--t2);display:flex;flex-direction:column;gap:5px">'+
+    '<div>📄 <strong>'+lines.length+'</strong> training samples</div>'+
+    (split?'<div>🔀 <strong>'+Math.round(lines.length/0.8*0.2)+'</strong> validation samples (20%)</div>':'')+
+    '<div>🔢 ~<strong>'+(totalTok/1000).toFixed(1)+'k</strong> tokens</div>'+
+    '<div>📁 Format: <strong>'+currentFmt+'</strong></div>'+
+    '<div>🗜 Dedup: <strong>'+((document.getElementById('dedup')||{value:'exact'}).value)+'</strong></div>'+
+    '</div>'
+  );
+}
+
+function validateJsonl() {
+  if(!generatedJsonl) { toast('⚠','Generate output first by completing steps 1–4.'); return; }
+  var lines = generatedJsonl.split('\n').filter(Boolean);
+  var errors = [];
+  lines.forEach(function(line, i) {
+    try { JSON.parse(line); } catch(e) { errors.push('Line '+(i+1)+': '+e.message); }
+  });
+  var el = document.getElementById('validationResult');
+  if(!el) return;
+  if(!errors.length) {
+    el.style.display='block';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:9px;padding:10px 14px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.22);border-radius:9px;font-size:.8rem;color:var(--gr)">✅ All '+lines.length+' lines are valid JSON. Ready for training.</div>';
+    toast('✅','JSONL validated — '+lines.length+' valid lines');
+  } else {
+    el.style.display='block';
+    el.innerHTML='<div style="padding:10px 14px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:9px;font-size:.78rem;color:var(--rd)">❌ '+errors.length+' errors:<br>'+errors.slice(0,5).join('<br>')+'</div>';
+    toast('❌', errors.length+' validation errors found');
+  }
+}
+
+function copyAll() {
+  if(!generatedJsonl) { toast('⚠','Nothing to copy yet.'); return; }
+  navigator.clipboard.writeText(generatedJsonl).then(function(){ toast('⎘','Copied '+generatedJsonl.split('\n').filter(Boolean).length+' lines to clipboard!'); });
+}
+
+/* ─── DOWNLOAD ───────────────────────────── */
+function downloadMain() {
+  if(!generatedJsonl) { toast('⚠','No data to download. Complete all steps first.'); return; }
+  var name = (document.getElementById('outputName')||{value:'training'}).value || 'training';
+  var fmt = (document.getElementById('outputFmt')||{value:'jsonl'}).value;
+  var content, type, ext;
+  if(fmt === 'json') {
+    var lines = generatedJsonl.split('\n').filter(Boolean).map(function(l){ return JSON.parse(l); });
+    content = JSON.stringify(lines, null, 2); type = 'application/json'; ext = '.json';
+  } else if(fmt === 'csv') {
+    var lines2 = generatedJsonl.split('\n').filter(Boolean).map(function(l){ return JSON.parse(l); });
+    var headers = Object.keys(lines2[0] || {});
+    content = headers.join(',') + '\n' + lines2.map(function(r){ return headers.map(function(h){ return '"'+(JSON.stringify(r[h]||'')).replace(/^"|"$/g,'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+    type = 'text/csv'; ext = '.csv';
+  } else {
+    content = generatedJsonl; type = 'application/jsonl'; ext = '.jsonl';
+  }
+  download(name + ext, content, type);
+  toast('📦','Downloaded '+name+ext);
+}
+
+function downloadVal() {
+  if(!valJsonl) return;
+  var name = (document.getElementById('outputName')||{value:'training'}).value || 'training';
+  download(name + '_validation.jsonl', valJsonl, 'application/jsonl');
+  toast('📦','Downloaded validation split');
+}
+
+function download(filename, content, type) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type: type}));
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ─── STEP NAVIGATION ────────────────────── */
+function goNext() {
+  if(currentStep === 1 && conversations.length === 0) {
+    toast('⚠','Load or add at least one conversation first.'); return;
+  }
+  if(currentStep < 5) {
+    setStep(currentStep + 1);
+    if(currentStep === 2) updateFmtPreview();
+    if(currentStep === 4) generateJsonl();
+  }
+}
+
+function goPrev() {
+  if(currentStep > 1) setStep(currentStep - 1);
+}
+
+function setStep(n) {
+  currentStep = n;
+  for(var i=1;i<=5;i++) {
+    var el = document.getElementById('step'+i);
+    if(el) el.style.display = i===n ? 'block' : 'none';
+    var dot = document.getElementById('sd'+i);
+    var lbl = document.getElementById('sl'+i);
+    var line = document.getElementById('sline'+i);
+    if(dot) dot.className = 'step-dot '+(i<n?'done':i===n?'active':'');
+    if(dot && i<n) dot.textContent='✓';
+    else if(dot) dot.textContent=String(i);
+    if(lbl) lbl.className = 'step-label '+(i<n?'done':i===n?'active':'');
+    if(line && i<5) line.className = 'step-line '+(i<n?'done':'');
+  }
+  var prev = document.getElementById('prevBtn');
+  var next = document.getElementById('nextBtn');
+  if(prev) prev.style.display = n>1 ? 'inline-flex' : 'none';
+  if(next) {
+    if(n===5) { next.textContent='✓ Done'; next.onclick=function(){toast('🎉','Export complete! Use your JSONL file to train KX-NeuroCore.');}} 
+    else { next.textContent='Continue →'; next.onclick=goNext; }
+  }
+}
+
+/* ─── MODAL PREVIEW ──────────────────────── */
+function showPreviewModal(id) {
+  var c = conversations.find(function(x){return x.id===id}); if(!c) return;
+  var msg = 'User:\n'+c.q+'\n\nAI Response:\n'+c.a;
+  alert(msg);
+}
+
+/* ─── DRAG & DROP ────────────────────────── */
+(function(){
+  var dz = document.getElementById('uploadZone');
+  if(!dz) return;
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over')});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over')});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0]) handleFileUpload(e.dataTransfer.files[0]);});
+})();
+
+/* ─── UTILS ──────────────────────────────── */
+function setEl(id, html){ var el=document.getElementById(id); if(el) el.innerHTML=html; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(icon,msg){
+  document.getElementById('tIcon').textContent=icon;
+  document.getElementById('tMsg').textContent=msg;
+  var t=document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(t._to);
+  t._to=setTimeout(function(){t.classList.remove('show')},3200);
+}
+
+// Init
+setStep(1);
+</script>
+</body>
+</html>
